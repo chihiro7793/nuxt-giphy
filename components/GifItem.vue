@@ -4,7 +4,7 @@
     :style="`background-image: url('${gif.images.fixed_width.url}')`"
   >
     <font-awesome-icon
-      :icon="['fas',bookmark]"
+      icon="bookmark"
       class="bookmark"
       v-if="this.gif.isbookmarked"
       @click="bookmarkThisGif"
