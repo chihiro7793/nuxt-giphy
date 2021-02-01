@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import {getSearchedGifs} from '~/services'
 export default {
   data() {
     return {
@@ -25,12 +26,19 @@ export default {
         this.$store.commit('searchCall',[])
       }
     },
-    async makeAsearchCall() {
-      let resp = await this.$axios.get(`/search?api_key=n7aovHfAyMyXnG3TPpBqIMHENiRFXuFd&q=${this.keyword}&limit=`)
-        resp.data.data.forEach(element => {
-          element.isbookmarked = false   
+    makeAsearchCall() {
+
+      getSearchedGifs({
+        method:'get',
+        url:'https://api.giphy.com/v1/gifs/search',
+        params:{api_key:'n7aovHfAyMyXnG3TPpBqIMHENiRFXuFd',q:this.keyword,limit:''}})
+        .then(({data})=>{
+            data.data.forEach(element => {
+            element.isbookmarked = false   
+            })
+          this.$store.commit('searchCall',data.data)
         })
-      this.$store.commit('searchCall',resp.data.data)
+        .catch(error=>console.log(error))
     }
   }
 }

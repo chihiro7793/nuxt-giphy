@@ -49,14 +49,9 @@ export default {
          }
        ]
       }
-]
+    ]
 
   ],
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseURL:'https://api.giphy.com/v1/gifs'
-  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

@@ -34,23 +34,26 @@
 <script>
 import SearchInput from '~/components/SearchInput.vue'
 import GifList from '~/components/GifList.vue'
-import {mapGetters} from 'vuex'
+import {getTrendingGifs} from '~/services'
 export default {
   name: 'App',
   components: {
     SearchInput,
     GifList
-  },
-   async created() {
-     try {
-       let resp = await this.$axios.get(`/trending?api_key=n7aovHfAyMyXnG3TPpBqIMHENiRFXuFd&limit=&rating=r`)
-        resp.data.data.forEach(element => {
+  }
+  ,
+  created() {
+    getTrendingGifs({
+      method:'get',
+      url:'https://api.giphy.com/v1/gifs/trending',
+      params:{api_key:'n7aovHfAyMyXnG3TPpBqIMHENiRFXuFd',limit:'',rating:'r'}})
+      .then(({data})=>{
+          data.data.forEach(element => {
           element.isbookmarked = false   
          })
-        this.$store.commit("initilizeState",resp.data.data)
-     } catch (error) {
-       console.log(error);
-     }
+        this.$store.commit("initilizeState",data.data)
+      })
+      .catch(error=>console.log(error))
     
   },
    methods: {

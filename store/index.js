@@ -1,5 +1,4 @@
-import {sliceArray} from '../functions/SliceArray'
-
+import {sliceArray} from '~/mixins/global'
 export const state = ()=>({ 
         gifs: [],
         trending: [],
@@ -7,6 +6,7 @@ export const state = ()=>({
         slicedGifs: [],
         bookmarks: [],
 })
+
 export const getters = {
     disablePrevBtn(state){
         return state.currentPage===0
@@ -17,6 +17,7 @@ export const getters = {
         )
     }
 }
+
 export const mutations = {
     initilizeState(state,data)
     {
@@ -41,7 +42,7 @@ export const mutations = {
         )
     },
     searchCall(state,data){
-        if(!data.length){
+        if(data.length !== 0){
             state.gifs = data
             state.slicedGifs = sliceArray(
                 state.gifs,
